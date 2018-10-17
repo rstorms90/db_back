@@ -2,9 +2,10 @@ exports.up = function(knex, Promise) {
   return knex.schema.createTable('movies', function(table) {
     // TABLE COLUMN DEFINITIONS HERE
     table.increments()
-    table.string('colname1', 255).notNullable().defaultTo('')
-    table.string('colname2', 255).notNullable().defaultTo('')
-    table.string('colname3', 255).notNullable().defaultTo('')
+    table.string('title', 255).notNullable().defaultTo('')
+    table.string('director', 255).notNullable().defaultTo('')
+    table.integer('year', 255).notNullable().defaultTo(0)
+    table.integer('rating', 255).notNullable().defaultTo(0)
     table.timestamps(true, true)
     // OR
     // table.dateTime('created_at').notNullable().defaultTo(knex.raw('now()'))
