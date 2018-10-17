@@ -1,11 +1,4 @@
-module.exports = {
-  development: {
-    client: 'pg',
-    connection: 'postgres://localhost/dbname-dev'
-  },
-  test: {},
-  production: {
-    client: 'pg',
-    connection: process.env.DATABASE_URL
-  }
-}
+const environment = process.env.NODE_ENV || 'development'
+const knexConfig = require('./knexfile')[environment]
+const knex = require('knex')(knexConfig)
+module.exports = knex
