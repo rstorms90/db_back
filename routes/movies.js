@@ -39,13 +39,13 @@ router.get('/:id', checkIdisNum, (req, res, next) => {
 router.post('/', (req, res, next) => {
   knex('movies')
     .insert({
-      "title": req.body.title,
-      "director": req.body.director,
-      "year": req.body.year,
-      "rating": req.body.rating
+      title: req.body.title,
+      director: req.body.director,
+      year: req.body.year,
+      rating: req.body.rating
     })
     .returning('*')
-    .then((data) => {
+    .then(data => {
       res.json(data[0])
     })
     .catch((err) => {
@@ -62,10 +62,10 @@ router.put('/:id', checkIdisNum, (req, res, next) => {
     .where('id', req.params.id)
     .limit(1)
     .update({
-      "title": req.body.title,
-      "director": req.body.director,
-      "year": req.body.year,
-      "rating": req.body.rating
+      title: req.body.title,
+      director: req.body.director,
+      year: req.body.year,
+      rating: req.body.rating
     })
     .returning('*')
     .then((data) => {
