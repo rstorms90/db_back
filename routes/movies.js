@@ -2,6 +2,15 @@ const express = require('express')
 const router = express.Router()
 const knex = require('../knex')
 
+const checkIdisNum = (req, res, next) => {
+  if (isNaN(req.params.id)){
+    console.log(`log it out`)
+    let err = new Error(`Id not found`)
+    err.status = 400
+    throw err
+  }
+  next()
+}
 
 // READ ALL records for this table
 router.get('/', (req, res, next) => {
@@ -15,7 +24,7 @@ router.get('/', (req, res, next) => {
 })
 
 // READ ONE record for this table
-router.get('/:id', (req, res, next) => {
+router.get('/:id', checkIdisNum, (req, res, next) => {
   knex('movies')
     .where('id',req.params.id)
     .then((rows) => {
@@ -30,10 +39,10 @@ router.get('/:id', (req, res, next) => {
 router.post('/', (req, res, next) => {
   knex('movies')
     .insert({
-      "title": req.body.colnametitle1,
-      "director": req.body.colname2,
-      "year": req.body.colname3,
-      "rating": req.body.colname4
+      "title": req.body.title,
+      "director": req.body.director,
+      "year": req.body.year,
+      "rating": req.body.rating
     })
     .returning('*')
     .then((data) => {
@@ -45,7 +54,7 @@ router.post('/', (req, res, next) => {
 })
 
 // UPDATE ONE record for this table
-router.put('/:id', (req, res, next) => {
+router.put('/:id', checkIdisNum, (req, res, next) => {
   knex('movies')
   .where('id', req.params.id)
   .then((data) => {
@@ -53,10 +62,10 @@ router.put('/:id', (req, res, next) => {
     .where('id', req.params.id)
     .limit(1)
     .update({
-      "title": req.body.colnametitle1,
-      "director": req.body.colname2,
-      "year": req.body.colname3,
-      "rating": req.body.colname4
+      "title": req.body.title,
+      "director": req.body.director,
+      "year": req.body.year,
+      "rating": req.body.rating
     })
     .returning('*')
     .then((data) => {
@@ -69,7 +78,7 @@ router.put('/:id', (req, res, next) => {
 })
 
 // DELETE ONE record for this table
-router.delete('/:id', function(req, res, next) {
+router.delete('/:id', checkIdisNum, (req, res, next) => {
   knex('movies')
     .where('id', req.params.id)
     .first()
