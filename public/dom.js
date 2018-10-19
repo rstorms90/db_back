@@ -1,13 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
 
   // handleFormSubmit()
+  getRatings()
   getMovies()
-  // getCryptids()
 })
 
 
 // Use AJAX to get the reports and append them to a table in the DOM
-function getMovies() {
+function getRatings() {
   axios.get('/movies')
   .then((response) => {
     // handle success
@@ -27,18 +27,22 @@ function getMovies() {
       let myRating = document.createElement('td')
       let del_td = document.createElement('td')
       let del_button = document.createElement('button')
+      let edit = document.createElement('button')
 
-      title.innerText = response.data.title
-      director.innerText = response.data.director
-      year.innerText = response.data.year
-      myRating.innerText = response.data.rating
+
+      title.innerText = movie.title
+      director.innerText = movie.director
+      year.innerText = movie.year
+      myRating.innerText = movie.rating
       del_button.innerText = "X"
-      del_button.setAttribute('data-id', movies.id)
+      edit.innerText = "Edit"
+      edit.setAttribute('data-id', movie.id)
+      del_button.setAttribute('data-id', movie.id)
       del_button.addEventListener('click', (ev) => {
-        let recordId = ev.target.getAttribute('data-id')
+        let movieId = ev.target.getAttribute('data-id')
 
         // DELETE THIS RECORD!
-        axios.delete(`/reports/${recordId}`)
+        axios.delete(`/movies/${movieId}`)
         .then((response) => {
           console.log(response)
           ev.target.parentElement.parentElement.remove()
@@ -53,7 +57,7 @@ function getMovies() {
       tr.appendChild(title)
       tr.appendChild(director)
       tr.appendChild(year)
-      tr.appendChild(rating)
+      tr.appendChild(myRating)
       tr.appendChild(del_td)
       tbody.appendChild(tr)
     })
@@ -65,47 +69,38 @@ function getMovies() {
   })
 }
 
-// // Use AJAX to get the cryptids and append them to a table in the DOM
-// function getCryptids() {
-//   axios.get('/cryptids')
-//   .then((response) => {
-//     // handle success
-//     console.log(response);
-//
-//     // DOM manipulation, need to create TRs, TDs
-//     response.data.forEach((cryptid) => {
-//       let tbody = document.querySelector('#list-cryptids tbody')
-//       let select = document.querySelector('form#create-report select#cryptid_id')
-//       let tr = document.createElement('tr')
-//       let name = document.createElement('td')
-//       let bio = document.createElement('td')
-//       let photoTD = document.createElement('td')
-//       let photo = document.createElement('img')
-//       let option = document.createElement('option')
-//
-//       name.innerText = cryptid.name
-//       bio.innerText = cryptid.bio
-//       photo.setAttribute('src', cryptid.photo)
-//       option.innerText = cryptid.name
-//       option.setAttribute('value', cryptid.id)
-//
-//       // append IMG, to the TD, append the TDs to the TR, the TR to the TBODY
-//       photoTD.appendChild(photo)
-//       tr.appendChild(name)
-//       tr.appendChild(bio)
-//       tr.appendChild(photoTD)
-//       tbody.appendChild(tr)
-//       select.appendChild(option)
-//
-//     })
-//
-//   })
-//   .catch((error) => {
-//     // handle error
-//     console.log(error);
-//   })
-// }
-//
+// Use AJAX to get the cryptids and append them to a table in the DOM
+function getMovies() {
+  axios.get('/movies')
+  .then((response) => {
+    // handle success
+
+    // DOM manipulation, need to create TRs, TDs
+    response.data.forEach((movie) => {
+      let tbody = document.querySelector('#list-movies tbody')
+      let select = document.querySelector('form#create-movie select#movie_id')
+      let tr = document.createElement('tr')
+      let name = document.createElement('td')
+      let option = document.createElement('option')
+
+      name.innerText = movie.name
+      bio.innerText = movie.bio
+      option.innerText = movie.name
+      option.setAttribute('value', movie.id)
+
+      // append IMG, to the TD, append the TDs to the TR, the TR to the TBODY
+      tr.appendChild(name)
+      tbody.appendChild(tr)
+      select.appendChild(option)
+    })
+
+  })
+  .catch((error) => {
+    // handle error
+    console.log(error);
+  })
+}
+
 // function handleFormSubmit() {
 //   let form = document.getElementById('create-report')
 //   form.addEventListener('submit', (ev) => {
