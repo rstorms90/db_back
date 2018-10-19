@@ -9,15 +9,21 @@
   <!-- Bootstrap -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+  <navbar>
+    <h1>Russ' Movie Ratings</h1>
+    <h3>Do you have opinions? Who cares? It's my page!</h3>
+  </navbar>
+
   <!-- HOME PAGE -->
   <div class="home">
-    <navbar>
-      <h1>Russ' Movie Ratings</h1>
-      <h3>Do you have opinions? Who cares? It's my page!</h3>
-    </navbar>
+  </div>
+
+  <!-- INDEX PAGE -->
+  <div class="index">
     <table id="list-movies">
       <thead>
         <tr>
@@ -27,62 +33,45 @@
           <th>My Rating</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody id="movies">
+
       </tbody>
     </table>
   </div>
-  <!-- INDEX PAGE -->
-  <!-- <div class="index">
-    <navbar>
-      <h1>Russ' Movie Ratings</h1>
-      <h3>Do you have opinions? Who cares? It's my page!</h3>
-    </navbar>
-  </div> -->
 
   <!-- NEW PAGE -->
-  <!-- <div class="new">
-    <navbar>
-      <h1>Russ' Movie Ratings</h1>
-      <h3>Do you have opinions? Who cares? It's my page!</h3>
-    </navbar>
-    <form id="create-movie">
+  <div hidden class="new" id="form">
+
+  <form id="create-movie">
   <label for="title">Title</label>
-  <input type="text" name="name" id="name"><br>
+  <input type="text" name="title" id="title"><br>
 
   <label for="director">Director</label>
-  <textarea rows="5" cols="25" name="content" id="content"></textarea><br>
+  <textarea rows="5" cols="25" name="director" id="director"></textarea><br>
 
   <label for="year">Year</label>
-  <input type="datetime-local" name="reported_at" id="reported_at"><br>
+  <input type="datetime" name="year" id="year"><br>
 
   <label for="rating">Rating</label>
-  <input type="text" name="location" id="location"><br>
+  <input type="text" name="rating" id="rating"><br>
 
   <label for="url">Poster URL</label>
-  <select class="" name="url" id="url">
-    <option>-</option>
-  </select>
+  <input type="text" name="posterurl" id="posterurl"><br>
   <br>
 
   <input type="submit" value="Submit" id="submit-form">
 
-  </div> -->
+  </div>
 
   <!-- EDIT PAGE -->
-  <!-- <div class="edit">
-    <navbar>
-      <h1>Russ' Movie Ratings</h1>
-      <h3>Do you have opinions? Who cares? It's my page!</h3>
-    </navbar>
-  </div> -->
+  <div class="edit">
+
+  </div>
 
   <!-- SHOW PAGE -->
-  <!-- <div class="show">
-    <navbar>
-      <h1>Russ' Movie Ratings</h1>
-      <h3>Do you have opinions? Who cares? It's my page!</h3>
-    </navbar>
-  </div> -->
+  <div class="show">
+
+  </div>
 
 
 

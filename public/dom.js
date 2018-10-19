@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+
+
   // handleFormSubmit()
   getRatings()
   getMovies()
@@ -12,7 +14,7 @@ function getRatings() {
   .then((response) => {
     // handle success
 
-    // clear out the reports tbody
+    // clear out the tbody
     let tbody = document.querySelector('#list-movies tbody')
     while (tbody.firstChild) {
         tbody.removeChild(tbody.firstChild)
@@ -27,20 +29,43 @@ function getRatings() {
       let myRating = document.createElement('td')
       let del_td = document.createElement('td')
       let del_button = document.createElement('button')
-      let edit = document.createElement('button')
+      let edit_td = document.createElement('td')
+      let edit_button = document.createElement('button')
+      let new_button = document.createElement('button')
+
 
 
       title.innerText = movie.title
       director.innerText = movie.director
       year.innerText = movie.year
+      year.setAttribute('type', 'number')
+      year.setAttribute('min', 1900)
+      year.setAttribute('max', 2020)
       myRating.innerText = movie.rating
-      del_button.innerText = "X"
-      edit.innerText = "Edit"
-      edit.setAttribute('data-id', movie.id)
+      del_button.innerText = "Delete"
+      edit_button.innerText = "Edit"
+      edit_button.setAttribute('data-id', movie.id)
       del_button.setAttribute('data-id', movie.id)
+      tr.setAttribute('data-id', movie.id)
+
+      //EDIT BUTTON
+      edit_button.addEventListener('click', (ev) => {
+        let movieId = ev.target.getAttribute('data-id')
+        let tableList = document.getElementById('movies')
+        let editForm = document.getElementById('form')
+
+        //HIDES EVERYTHING BESIDES MOVIE TO EDIT
+        tableList.childNodes.forEach((row) => {
+          if (row.getAttribute('data-id') != movie.id){
+            row.style.display = `none`
+            editForm.hidden = false
+          }
+        })
+      })
+
+      //DELETE BUTTON
       del_button.addEventListener('click', (ev) => {
         let movieId = ev.target.getAttribute('data-id')
-
         // DELETE THIS RECORD!
         axios.delete(`/movies/${movieId}`)
         .then((response) => {
@@ -54,11 +79,13 @@ function getRatings() {
 
       // append the TDs to the TR, the TR to the TBODY
       del_td.appendChild(del_button)
+      edit_td.appendChild(edit_button)
       tr.appendChild(title)
       tr.appendChild(director)
       tr.appendChild(year)
       tr.appendChild(myRating)
       tr.appendChild(del_td)
+      tr.appendChild(edit_td)
       tbody.appendChild(tr)
     })
 
@@ -91,7 +118,6 @@ function getMovies() {
       // append IMG, to the TD, append the TDs to the TR, the TR to the TBODY
       tr.appendChild(name)
       tbody.appendChild(tr)
-      select.appendChild(option)
     })
 
   })

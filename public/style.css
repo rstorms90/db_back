@@ -9,23 +9,15 @@ a {
 
 form {
   margin: 20px;
-  background-color: lightgrey;
   padding: 15px;
   border: 1px solid grey;
 }
 
-table {
-  border-collapse: collapse;
-}
-
 th, td {
-  border: 1px solid grey;
-  padding: 5px;
-}
-
-tbody img {
-  max-width: 200px;
+  border-collapse: collapse;
+  padding: 15px;
 }
 
 th {
-  background-color: lightblue;
+  background-color: steelblue;
+}
