@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   getMovies()
-  handleFormSubmit()
+  // editFormSubmit()
 })
 
 
@@ -93,6 +93,7 @@ function getMovies() {
   })
 }
 
+
 //ADD MOVIE BUTTON
 let addMovieButton = document.getElementById('addButton')
 addMovieButton.addEventListener('click', (ev) => {
@@ -103,31 +104,55 @@ addMovieButton.addEventListener('click', (ev) => {
   editForm.hidden = true
   createForm.hidden = false
 })
-
-//SUBMIT BUTTON
-function handleFormSubmit() {
-  let form = document.getElementById('create-report')
-  form.addEventListener('submit', (ev) => {
+  //EVENT LISTENER ON CREATE MOVIE
+  createForm.addEventListener('submit', (ev) => {
     ev.preventDefault()
+    let postData = {}
+    let addedMovie = ev.target.elements
+
+    for (let i = 0; i < addedMovie.length; i++) {
+      let inputName = addedMovie[i].name
+      if (inputName) {
+        postData[inputName] = addedMovie[i].value
+      }
+    }
+    console.log(postData)
+    axios.post('/movies', postData)
+      .then((response) => {
+        console.log(response)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  })
+
+
+
+//EDIT SUBMIT BUTTON
+function editFormSubmit() {
+
+  let editForm = document.getElementById('edit-movie')
+
+  editForm.addEventListener('submit', (ev) => {
+    ev.preventDefault()
+    let movieId = ev.target.getAttribute('data-id')
 
     // grab all values from the form
     let postData = {}
     let formElements = ev.target.elements
 
-    for (var i = 0; i < formElements.length; i++) {
+    for (let i = 0; i < formElements.length; i++) {
       let inputName = formElements[i].name
-      if( inputName ) {
+      if (inputName) {
         postData[inputName] = formElements[i].value
       }
     }
 
-    console.log('postData', postData);
-
     // axios.post that data to the correct backend route
-    axios.post('/reports', postData)
+    axios.put(`/movies/${movieId}`, postData)
     .then((response) => {
       console.log(response)
-      getReports()  //call this once again
+      getMovies()
     })
     .catch((error) => {
       console.log(error)
