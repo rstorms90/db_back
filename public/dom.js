@@ -2,10 +2,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   getMovies()
-})
+
 
 
 // Use AJAX to get the reports and append them to a table in the DOM
+let editForm = document.getElementById('form')
 function getMovies() {
   axios.get('/movies')
   .then((response) => {
@@ -49,12 +50,14 @@ function getMovies() {
         let movieId = ev.target.getAttribute('data-id')
         let tableList = document.getElementById('movies')
         let editForm = document.getElementById('form')
+        let id = document.getElementById('id')
 
         //HIDES EVERYTHING BESIDES MOVIE TO EDIT
         tableList.childNodes.forEach((row) => {
           if (row.getAttribute('data-id') != movie.id){
             row.style.display = `none`
             editForm.hidden = false
+            id.value = movie.id
           }
         })
       })
@@ -96,7 +99,6 @@ function getMovies() {
 //ADD MOVIE BUTTON
 let addMovieButton = document.getElementById('addButton')
 addMovieButton.addEventListener('click', (ev) => {
-  let editForm = document.getElementById('form')
   let createForm = document.getElementById('createForm')
   let moviesTable = document.getElementById('list-movies')
   moviesTable.hidden = true
@@ -128,32 +130,30 @@ addMovieButton.addEventListener('click', (ev) => {
 
 
 // EDIT SUBMIT BUTTON
-function editFormSubmit() {
-
-  let editForm = document.getElementById('edit-movie')
-
-  editForm.addEventListener('submit', (ev) => {
+  let editSubmit = document.getElementById('edit-movie')
+  editSubmit.addEventListener('submit', (ev) => {
     ev.preventDefault()
-    let movieId = ev.target.getAttribute('data-id')
+
 
     // grab all values from the form
     let postData = {}
     let formElements = ev.target.elements
 
-    for (let i = 0; i < formElements.length; i++) {
+    for (let i = 1; i < formElements.length; i++) {
       let inputName = formElements[i].name
       if (inputName) {
         postData[inputName] = formElements[i].value
       }
     }
 
-    // axios.post that data to the correct backend route
-    axios.put(`/movies/${movieId}`, postData)
+    axios.put(`/movies/${formElements[0].value}`, postData)
     .then((response) => {
+      editForm.hidden = true
+      getMovies()
       console.log(response)
     })
     .catch((error) => {
       console.log(error)
     })
   })
-}
+})
