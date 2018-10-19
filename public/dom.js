@@ -2,7 +2,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   getMovies()
-  // editFormSubmit()
 })
 
 
@@ -116,10 +115,10 @@ addMovieButton.addEventListener('click', (ev) => {
         postData[inputName] = addedMovie[i].value
       }
     }
-    console.log(postData)
     axios.post('/movies', postData)
       .then((response) => {
         console.log(response)
+        location.reload()
       })
       .catch((error) => {
         console.log(error)
@@ -128,7 +127,7 @@ addMovieButton.addEventListener('click', (ev) => {
 
 
 
-//EDIT SUBMIT BUTTON
+// EDIT SUBMIT BUTTON
 function editFormSubmit() {
 
   let editForm = document.getElementById('edit-movie')
@@ -152,7 +151,6 @@ function editFormSubmit() {
     axios.put(`/movies/${movieId}`, postData)
     .then((response) => {
       console.log(response)
-      getMovies()
     })
     .catch((error) => {
       console.log(error)
