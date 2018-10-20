@@ -31,7 +31,6 @@ function getMovies() {
       let edit_button = document.createElement('button')
       let new_button = document.createElement('button')
 
-
       title.innerText = movie.title
       director.innerText = movie.director
       year.innerText = movie.year
@@ -60,7 +59,7 @@ function getMovies() {
             id.value = movie.id
           }
         })
-      })
+        })
 
       //DELETE BUTTON
       del_button.addEventListener('click', (ev) => {
@@ -138,6 +137,7 @@ addMovieButton.addEventListener('click', (ev) => {
     // grab all values from the form
     let postData = {}
     let formElements = ev.target.elements
+
 
     for (let i = 1; i < formElements.length; i++) {
       let inputName = formElements[i].name
