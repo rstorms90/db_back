@@ -20,4 +20,10 @@ th, td {
 
 th {
   background-color: steelblue;
+  color: white;
+}
+
+#poster {
+  max-width: 200px;
+  max-height: 300px;
 }

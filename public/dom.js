@@ -5,8 +5,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-// Use AJAX to get the reports and append them to a table in the DOM
+// Use AJAX to get the movies and append them to a table in the DOM
 let editForm = document.getElementById('form')
+let poster = document.getElementById('poster')
 function getMovies() {
   axios.get('/movies')
   .then((response) => {
@@ -31,6 +32,7 @@ function getMovies() {
       let edit_button = document.createElement('button')
       let new_button = document.createElement('button')
 
+
       title.innerText = movie.title
       director.innerText = movie.director
       year.innerText = movie.year
@@ -41,7 +43,12 @@ function getMovies() {
       del_button.innerText = "Delete"
       edit_button.innerText = "Edit"
       edit_button.setAttribute('data-id', movie.id)
+      edit_button.setAttribute('data-src', movie.poster)
       del_button.setAttribute('data-id', movie.id)
+      del_button.classList.add('btn')
+      del_button.classList.add('btn-danger')
+      edit_button.classList.add('btn')
+      edit_button.classList.add('btn-info')
       tr.setAttribute('data-id', movie.id)
 
       //EDIT BUTTON
@@ -50,7 +57,8 @@ function getMovies() {
         let tableList = document.getElementById('movies')
         let editForm = document.getElementById('form')
         let id = document.getElementById('id')
-
+        let src = ev.target.getAttribute('data-src')
+        poster.src = src
         //HIDES EVERYTHING BESIDES MOVIE TO EDIT
         tableList.childNodes.forEach((row) => {
           if (row.getAttribute('data-id') != movie.id){
@@ -59,11 +67,12 @@ function getMovies() {
             id.value = movie.id
           }
         })
-        })
+      })
 
       //DELETE BUTTON
       del_button.addEventListener('click', (ev) => {
         let movieId = ev.target.getAttribute('data-id')
+
         // DELETE THIS RECORD!
         axios.delete(`/movies/${movieId}`)
         .then((response) => {
@@ -137,7 +146,6 @@ addMovieButton.addEventListener('click', (ev) => {
     // grab all values from the form
     let postData = {}
     let formElements = ev.target.elements
-
 
     for (let i = 1; i < formElements.length; i++) {
       let inputName = formElements[i].name

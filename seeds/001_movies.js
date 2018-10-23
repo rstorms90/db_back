@@ -8,70 +8,80 @@ exports.seed = function(knex, Promise) {
             title: 'WALL-E',
             director: 'Andrew Stanton',
             year: 2008,
-            rating: 4
+            rating: 4,
+            poster: "https://upload.wikimedia.org/wikipedia/en/c/c2/WALL-Eposter.jpg"
           },
           {
             id: 2,
             title: 'The Lord of the Rings: The Return of the King',
             director: 'Peter Jackson',
             year: 2003,
-            rating: 5
+            rating: 5,
+            poster: "https://placekitten.com/200/300"
           },
           {
             id: 3,
             title: 'Saving Private Ryan',
             director: 'Steven Spielberg',
             year: 1998,
-            rating: 5
+            rating: 5,
+            poster: "https://placekitten.com/200/300"
           },
           {
             id: 4,
             title: 'Whiplash',
             director: 'Damien Chazelle',
             year: 2014,
-            rating: 5
+            rating: 5,
+            poster: "https://placekitten.com/200/300"
           },
           {
             id: 5,
             title: 'Up',
             director: 'Bob Peterson & Pete Doctor',
             year: 2009,
-            rating: 5
+            rating: 5,
+            poster: "https://placekitten.com/200/300"
           },
           {
             id: 6,
             title: 'Aladdin',
             director: 'John Musker & Ron Clements',
             year: 1992,
-            rating: 5
+            rating: 5,
+            poster: "https://placekitten.com/200/300"
           },
           {
             id: 7,
             title: 'Raiders of the Lost Ark',
             director: 'Steven Spielberg',
             year: 1981,
-            rating: 4
+            rating: 4,
+            poster: "https://placekitten.com/200/300"
           },
           {
             id: 8,
             title: 'Office Space',
             director: 'Mike Judge',
             year: 1999,
-            rating: 5
+            rating: 5,
+            poster: "https://placekitten.com/200/300"
           },
           {
             id: 9,
             title: 'The Goonies',
             director: 'Richard Donner',
             year: 1985,
-            rating: 5
+            rating: 5,
+            poster: "https://placekitten.com/200/300"
           },
           {
             id: 10,
             title: 'Amélie',
             director: 'Jean-Pierre Jeunet',
             year: 2001,
-            rating: 5
+            rating: 5,
+            poster: "https://placekitten.com/200/300"
           }
         ])
         .then(function() {
