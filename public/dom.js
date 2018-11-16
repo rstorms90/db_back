@@ -59,11 +59,13 @@ function getMovies() {
         let id = document.getElementById('id')
         let src = ev.target.getAttribute('data-src')
         poster.src = src
+
         //HIDES EVERYTHING BESIDES MOVIE TO EDIT
         tableList.childNodes.forEach((row) => {
           if (row.getAttribute('data-id') != movie.id){
             row.style.display = `none`
             editForm.hidden = false
+            poster.hidden = false
             id.value = movie.id
           }
         })
@@ -141,6 +143,7 @@ addMovieButton.addEventListener('click', (ev) => {
   let editSubmit = document.getElementById('edit-movie')
   editSubmit.addEventListener('submit', (ev) => {
     ev.preventDefault()
+    poster.hidden = false
 
 
     // grab all values from the form
@@ -156,6 +159,8 @@ addMovieButton.addEventListener('click', (ev) => {
 
     axios.put(`/movies/${formElements[0].value}`, postData)
     .then((response) => {
+      let poster = document.getElementById('poster')
+      poster.hidden = true
       editForm.hidden = true
       getMovies()
       console.log(response)
